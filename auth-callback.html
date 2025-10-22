@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification - FarmConnect PH</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 16px;
+        }
+        p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #059669;
+        }
+        .button {
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background: #047857;
+        }
+        .button:disabled {
+            background: #9CA3AF;
+            cursor: not-allowed;
+        }
+        .error {
+            color: #EF4444;
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
+        .success {
+            color: #059669;
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #059669;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .success-container {
+            display: none;
+        }
+        .success-container.show {
+            display: block;
+        }
+        .form-container.hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Password Verification Form -->
+        <div class="form-container" id="formContainer">
+            <div class="icon">🔐</div>
+            <h1>Email Verification</h1>
+            <p>Please enter your password to verify your email address.</p>
+            
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <div class="error" id="errorMessage">Incorrect password. Please try again.</div>
+                </div>
+                
+                <button type="submit" class="button" id="submitButton">
+                    Verify Email
+                </button>
+                <div class="spinner" id="spinner"></div>
+            </form>
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-container" id="successContainer">
+            <div class="icon">✅</div>
+            <h1>Email Verified!</h1>
+            <p>Your email has been successfully verified. Please return to the FarmConnect PH app to complete the process.</p>
+            <p style="font-size: 14px; color: #999; margin-top: 20px;">
+                The app will automatically detect your verification and show a success message.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Get URL parameters to extract email
+        const urlParams = new URLSearchParams(window.location.search);
+        const email = urlParams.get('email') || 'your email';
+        
+        // Update the form description
+        document.querySelector('p').textContent = `Please enter the password for ${email} to verify your email address.`;
+
+        document.getElementById('passwordForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const submitButton = document.getElementById('submitButton');
+            const spinner = document.getElementById('spinner');
+            const errorMessage = document.getElementById('errorMessage');
+            const formContainer = document.getElementById('formContainer');
+            const successContainer = document.getElementById('successContainer');
+            
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = 'Verifying...';
+            spinner.style.display = 'block';
+            errorMessage.style.display = 'none';
+            
+            try {
+                // Simulate password verification (in real implementation, this would call your backend)
+                // For now, we'll accept any password that's at least 6 characters
+                await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
+                
+                if (password.length >= 6) {
+                    // Password is correct
+                    formContainer.classList.add('hide');
+                    successContainer.classList.add('show');
+                } else {
+                    // Password is incorrect
+                    throw new Error('Incorrect password');
+                }
+            } catch (error) {
+                // Show error message
+                errorMessage.style.display = 'block';
+                submitButton.disabled = false;
+                submitButton.textContent = 'Verify Email';
+                spinner.style.display = 'none';
+                
+                // Clear password field
+                document.getElementById('password').value = '';
+                document.getElementById('password').focus();
+            }
+        });
+    </script>
+</body>
+</html>
