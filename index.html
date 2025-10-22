@@ -1,37 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FarmConnect PH</title>
-    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
-    <style id="expo-reset">
-      /* These styles make the body full-height */
-      html,
-      body {
-        height: 100%;
-      }
-      /* These styles disable body scrolling if you are using <ScrollView> */
-      body {
-        overflow: hidden;
-      }
-      /* These styles make the root element full-height */
-      #root {
-        display: flex;
-        height: 100%;
-        flex: 1;
-      }
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 16px;
+        }
+        p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+        .button {
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background: #047857;
+        }
+        .app-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
     </style>
-  </head>
-
-  <body>
-    <!-- Use static rendering with Expo Router to support running without JavaScript. -->
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <!-- The root element for your Expo app. -->
-    <div id="root"></div>
-  <script src="/_expo/static/js/web/index-8c4d78452788e7b7f27f6707b806118e.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">🌾</div>
+        <h1>FarmConnect PH</h1>
+        <p>Welcome to FarmConnect PH - Connecting farmers and consumers in the Philippines.</p>
+        
+        <div class="app-info">
+            <h3>📱 Mobile App</h3>
+            <p>This is a React Native app designed for mobile devices.</p>
+            <p>To use the full app, please:</p>
+            <ol style="text-align: left; color: #666;">
+                <li>Install Expo Go on your mobile device</li>
+                <li>Scan the QR code from the development server</li>
+                <li>Or run: <code>npx expo start</code> locally</li>
+            </ol>
+        </div>
+        
+        <a href="auth-callback.html" class="button">Test Email Verification</a>
+        
+        <p style="font-size: 14px; color: #999; margin-top: 20px;">
+            Email verification is working! Click the button above to test it.
+        </p>
+    </div>
 </body>
 </html>
